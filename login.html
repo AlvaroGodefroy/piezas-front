@@ -1,8 +1,122 @@
 <!DOCTYPE html>
-<html>
-<body>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css"> 
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.material.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<h1>Login</h1>
+	<style>
+	.formulario {padding: 50px 70px 70px 71px;border-radius: 2px;
+    margin: 10px auto 30px;background: #ffffff none repeat scroll 0 0;
+    max-width: 38%;}
+   
+	</style>
+ 	
+	<title>Web Ventas</title>
+</head>
+<body style="background-color:#D6D0CF">
 
+    
+<div class='formulario'>
+
+    <div class="container"> 
+    <h1>Bienvenido</h1>
+    <hr>
+    <form method="post" id="login">
+      <div class="input-field">
+        <input type="text" class="validate" id="usuario" name="usuario" required>
+        <label  for="usuario">Usuario</label>
+      </div>
+      <div class="input-field">
+        <label class="mdl-textfield__label" for="password">Password</label>
+        <input type="password"  class="validate" name="password" id="password" required>
+      </div>
+    
+    
+           
+      
+      <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Ingresar</button>
+      <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href='registrarse.html'>Registrarse</a>
+      
+    </form>
+    
+    </div>
+    </div>
+
+  
+
+  
+
+
+
+ 
+ 
+
+ 	<script src="https://code.jquery.com/jquery-3.3.1.js" ></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" ></script>
+    <script  src="https://cdn.datatables.net/1.10.19/js/dataTables.material.min.js"></script>
+    
+	
+	<script>
+	//En esta parte al momento de mostrar la tabla le asignamos la propiedad de datatable para poder tener el paginado correspondiente
+	$(document).ready(function() {
+    $('#files').DataTable( {
+        columnDefs: [
+            {
+                targets: [ 0, 1, 2 ],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
+        ]
+    } );
+    $('#parts').DataTable( {
+        columnDefs: [
+            {
+                targets: [ 0, 1, 2 ],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
+        ]
+    } );
+    $('.sidenav').sidenav();
+     $('.modal').modal();
+     $('.modal').modal();
+    $('.datepicker').datepicker({
+      format: 'dd-mm-yyyy' 
+    });
+    $('select').formSelect();
+    $("#login").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = "https://test-piezas.herokuapp.com/usersLogin";
+
+$.ajax({
+    type: "POST",
+    url: url,
+    data: form.serialize(), // serializes the form's elements.
+    success: function(data)
+    {
+        if (data.val=="true"){
+            alert('Credenciales Correctas')
+        window.location.replace("home.html");
+        }else{
+            alert('Credenciales Incorrectas')
+        window.location.replace("login.html");
+        }
+        
+    }
+    });
+
+
+});    
+
+
+    } 
+
+);
+</script>
 </body>
 </html>
