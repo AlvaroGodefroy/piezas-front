@@ -306,7 +306,7 @@ if (sessionStorage.getItem("userlog")===null	) {
 																			e.preventDefault(); // avoid to execute the actual submit of the form.
 
 																			var form = $(this);
-																			var url = "http://localhost:4009/comprap";
+																			var url = "https://piezas-back.herokuapp.com/comprap";
 
 																			$.ajax({
 																			type: "POST",
@@ -550,7 +550,7 @@ function cargareseña(id) {
 	e.preventDefault(); // avoid to execute the actual submit of the form.
 
 	var form = $(this);
-	var url = "http://localhost:4009/opinionp";
+	var url = "https://piezas-back.herokuapp.com/opinionp";
 
 	$.ajax({
 	type: "POST",
