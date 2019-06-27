@@ -18,14 +18,24 @@
 </head>
 <script >
 </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+
+
+
 <body style="background-color:#D6D0CF" onload="getData()")>
     <div class="container">
         <h2></h2>
 
          <!-- Modal Trigger -->
           <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Agregar Categorias</a>
-          <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Agregar Productos</a>
-          <a class="waves-effect waves-light btn modal-trigger" href="login.html">Salir</a>
+
+				<a class="waves-effect waves-light btn modal-trigger" href="#modal2">Agregar Productos</a>
+  <a onclick="reporte()" class="waves-effect waves-light btn modal-trigger" >Generar reporte financiero</a>
+  <a onclick="reportestock()" class="waves-effect waves-light btn modal-trigger" >Ver stock productos</a>
+
+				  <a class="waves-effect waves-light btn modal-trigger" href="login.html">Salir</a>
 
          <h4>Categorias</h4>
 
@@ -128,9 +138,12 @@
 
 					<div class="input-field">
             <label class="mdl-textfield__label" for="urlim">Url Imagen</label>
-            <input type="text" class="validate" name="urlim" id="urlim" required>
+            <input type="text" class="validate" name="urlim" id="urlim" >
           </div>
-
+					<div class="input-field">
+						<label class="mdl-textfield__label" for="stock">stock</label>
+						<input type="text" class="validate" name="stock" id="stock" required>
+					</div>
 
          </div>
 
@@ -166,7 +179,7 @@
      function getData(){
   $.ajax({
     type: "GET",
-    url: 'https://test-piezas.herokuapp.com/categories',
+    url: 'https://piezas-back.herokuapp.com/categories',
     dataType: "json",
     success: function(data){
         var Options="";
@@ -184,7 +197,7 @@
   });
 
   $.ajax({
-        url : "https://test-piezas.herokuapp.com/categories",
+        url : "https://piezas-back.herokuapp.com/categories",
         type : 'GET',
         dataType : 'json',
         success : function(data) {
@@ -208,7 +221,7 @@
     });
 
     $.ajax({
-        url : "https://test-piezas.herokuapp.com/products",
+        url : "https://piezas-back.herokuapp.com/products",
         type : 'GET',
         dataType : 'json',
         success : function(data) {
@@ -254,7 +267,7 @@
 e.preventDefault(); // avoid to execute the actual submit of the form.
 
 var form = $(this);
-var url = "https://test-piezas.herokuapp.com/categories";
+var url = "https://piezas-back.herokuapp.com/categories";
 
 $.ajax({
     type: "POST",
@@ -310,5 +323,103 @@ $.ajax({
 
  );
  </script>
+
+ <script type="text/javascript">
+ var comprasall;
+	$.ajax({
+				url : "https://piezas-back.herokuapp.com/getShop1",
+				type : 'GET',
+				dataType : 'json',
+				success : function(data) {
+							comprasall=data
+
+
+
+
+
+				},
+				error : function() {
+						alert('Error api products');
+				}
+		});
+
+		var producsall;
+		 $.ajax({
+					 url : "https://piezas-back.herokuapp.com/products",
+					 type : 'GET',
+					 dataType : 'json',
+					 success : function(data) {
+								 producsall=data
+
+
+
+
+
+					 },
+					 error : function() {
+							 alert('Error api products');
+					 }
+			 });
+
+
+
+
+function reportestock(){
+
+				var employees = [
+{"firstName":"John", "lastName":"Doe"},
+{"firstName":"Anna", "lastName":"Smith"},
+{"firstName":"Peter", "lastName":"Jones"}
+	];
+	var doc = new jsPDF()
+	var total=0;
+	producsall.forEach(function(producsall3, i){
+		total=total + producsall3.stock;
+			doc.text(20, 10 + (i * 10),
+					" Producto: " + producsall3.nombre + "    "+
+					"Stock disponible: " + producsall3.stock);
+
+	});
+
+	doc.text('Stock total' +"--->" +total , 100,230)
+ doc.save('Reporte Stock_kikeautomotriz2019.pdf')
+
+}
+
+
+	function reporte(){
+
+					var employees = [
+{"firstName":"John", "lastName":"Doe"},
+{"firstName":"Anna", "lastName":"Smith"},
+{"firstName":"Peter", "lastName":"Jones"}
+		];
+		var doc = new jsPDF()
+		var total=0;
+		comprasall.forEach(function(comprasall3, i){
+			total=total + comprasall3.total;
+				doc.text(20, 10 + (i * 10),
+						"Codigo productos: " + comprasall3.products + "    "+
+						"Precio total por pedido: " + comprasall3.total);
+
+		});
+
+		doc.text('Total de ganancias' +"--->" +total , 100,230)
+	 doc.save('Reporte financiero_kikeautomotriz2019.pdf')
+
+	}
+
+	</script>
+	<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/5d143e3353d10a56bd7c0df5/default';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+	</script>
  </body>
  </html>

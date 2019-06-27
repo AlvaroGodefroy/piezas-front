@@ -49,8 +49,9 @@
 					<ul class="header-links pull-right">
 
 						<li><a href="index.html"><i class="fa fa-home"></i> Inicio</a></li>
-						<li><a href="compras.html"><i class="fa fa-home"></i> Compras</a></li>
+						<li><a href="compras.html"><i class="fa fa-home"></i> Pedido</a></li>
 
+						<li><a href="historial.html"><i class="fa fa-home"></i> Historial Compras </a></li>
 
 						<li><a href="#"><i class="fa fa-dollar"></i> Soles</a></li>
 						<li id="logedo"><a href="login.html"><i class="fa fa-user-o"></i>
@@ -249,14 +250,14 @@ Cargando nombre productos o f5
 															var		descrip=[]
 															var		imgp	=[]
 															var		addcarr=[]
-
+															var  shoid=[]
 															var  shopro=[]
 															var  shoptotal=[]
 															var shoplugar=[]
 
 
 								$.ajax({
-											url : "https://test-piezas.herokuapp.com/products",
+											url : "https://piezas-back.herokuapp.com/products",
 											type : 'GET',
 											dataType : 'json',
 											success : function(data) {
@@ -271,7 +272,7 @@ Cargando nombre productos o f5
 									});
 
 									$.ajax({
-												url : "https://piezas-back.herokuapp.com/getshop",
+												url : "https://piezas-back.herokuapp.com/getShop",
 												type : 'GET',
 												dataType : 'json',
 												success : function(data) {
@@ -289,7 +290,7 @@ Cargando nombre productos o f5
 
 
 								$.ajax({
-											url : "https://test-piezas.herokuapp.com/categories",
+											url : "https://piezas-back.herokuapp.com/categories",
 											type : 'GET',
 											dataType : 'json',
 											success : function(data) {
@@ -307,6 +308,10 @@ Cargando nombre productos o f5
 													console.log('error');
 											}
 									});
+
+
+
+
 
 									carrito=[]
 									if (sessionStorage.getItem("carrito2")===null	) {
@@ -359,6 +364,7 @@ function iniciarfav(){
 									shopro.push( comprasall[pro].products)
 									shoptotal.push( comprasall[pro].total)
 									shoplugar.push( comprasall[pro].lugar)
+									shoid.push(comprasall[pro].idcompra)
 
 					}
 
@@ -432,19 +438,83 @@ function iniciarfav(){
 
 											$("#descpro").append(
 
-												'<div style="height:200px">  ' +  '<label>'+ 'Codigo  compra'+ '</label>' + ' <br>' +'<span >'+ holajs+ '</span>	' + ' <br>' +' <br>' + '<label>'+ 'Lugar	'+'</label>' +' <br>'+  '<span >' +shoplugar[i] + '</span>	' + '<br>  <br>'+'<label>' +'Precio total'+ '</label>' + '<br>'+ shoptotal[i] +'</div>  <hr>	'
+												'<div style="height:200px">  ' +  '<label>'+ 'Codigo  compra'+ '</label>' + ' <br>' +'<span >'+ shoid[i]+ '</span>	' + ' <br>' +' <br>' + '<label>'+ 'Lugar	'+'</label>' +' <br>'+  '<span >' +shoplugar[i] + '</span>	' + '<br>  <br>'+'<label>' +'Precio total'+ '</label>' + '<br>'+ shoptotal[i] +'</div>  <hr>	'
 
 
 											)
 
 											$("#buypro").append(
-												'<div style="height:200px">  ' +  '<button onclick="añadirp('+ addcarr[i]+')">'+ 'Cancelar pedido'+ '</button>' +'</div> '
+												'<div style="height:200px">  ' +  '<button onclick="cancep('+ shoid[i]+')">'+ 'Cancelar pedido'+ '</button>' + '<br><br><br>'+  '<button onclick="confp('+ shoid[i]+')">'+ 'Confirmar  pedido'+ '</button>' +'</div> '
 											)
 
 
 										})
 
 									}
+
+
+
+								</script>
+
+
+								<script type="text/javascript">
+								function confp(ids){
+
+									var url = "https://piezas-back.herokuapp.com/updateshop";
+
+									$.ajax({
+									type: "POST",
+									url: url,
+									data: 	({id: ids}),
+
+									success: function(data) {
+													alert('compra confirmada' )
+													window.location.replace("compras.html");
+
+
+										 },
+										 error: function(error) {
+												 console.log("some error in fetching the notifications");
+											}
+
+
+									});
+
+
+
+
+
+
+								}
+								function cancep(ids){
+
+									var url = "https://piezas-back.herokuapp.com/deleteshop";
+
+									$.ajax({
+									type: "POST",
+									url: url,
+									data: 	({id: ids}),
+
+									success: function(data) {
+													alert('compra cancelada' )
+													window.location.replace("compras.html");
+
+
+										 },
+										 error: function(error) {
+												 console.log("some error in fetching the notifications");
+											}
+
+
+									});
+
+
+
+
+
+
+								}
+
 
 
 
@@ -564,7 +634,17 @@ function iniciarfav(){
 		<script src="js/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
-
+		<script type="text/javascript">
+		var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+		(function(){
+		var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+		s1.async=true;
+		s1.src='https://embed.tawk.to/5d143e3353d10a56bd7c0df5/default';
+		s1.charset='UTF-8';
+		s1.setAttribute('crossorigin','*');
+		s0.parentNode.insertBefore(s1,s0);
+		})();
+		</script>
 
 	</body>
 </html>
