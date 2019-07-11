@@ -323,7 +323,7 @@ Cargando nombre productos o f5
 
 										 function añadirp(id){
 											 carrito.push(id)
-											 alert("Producto añadido")
+											 //alert("Producto añadido")
 
 												document.getElementById('notis').innerHTML=carrito.length
 												sessionStorage.removeItem("carrito2");
@@ -334,7 +334,7 @@ Cargando nombre productos o f5
 										 function eliminarp(id){
 
 											 carrito.splice(id, 1);
-											 alert("Producto eliminado")
+											 //alert("Producto eliminado")
 location.reload();
 												document.getElementById('notis').innerHTML=carrito.length
 												sessionStorage.removeItem("carrito2");

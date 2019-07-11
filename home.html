@@ -277,7 +277,7 @@ $.ajax({
     {
 
         if (data.val=="true"){
-            alert('Categoria registrado')
+            //alert('Categoria registrado')
             window.location.replace("home.html");
         }else{
             alert('Error no se pudo registrar')
@@ -303,7 +303,7 @@ $.ajax({
     success: function(data)
     {
         if (data.val=="true"){
-            alert('Producto registrado')
+            //alert('Producto registrado')
             window.location.replace("home.html");
         }else{
             alert('Error no se pudo registrar')
@@ -395,16 +395,18 @@ function reportestock(){
 {"firstName":"Peter", "lastName":"Jones"}
 		];
 		var doc = new jsPDF()
-		var total=0;
+    var total=0;
+    doc.text(35,25, "REPORTE FINANCIERO PIEZAS")
 		comprasall.forEach(function(comprasall3, i){
 			total=total + comprasall3.total;
-				doc.text(20, 10 + (i * 10),
+				doc.text(20, 45 + (i * 10),
+            "Pedido "+ i +
 						"Codigo productos: " + comprasall3.products + "    "+
 						"Precio total por pedido: " + comprasall3.total);
 
 		});
 
-		doc.text('Total de ganancias' +"--->" +total , 100,230)
+		doc.text('Ingreso bruto: ' +total , 100,230)
 	 doc.save('Reporte financiero_kikeautomotriz2019.pdf')
 
 	}

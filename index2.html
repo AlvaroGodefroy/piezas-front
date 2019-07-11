@@ -325,7 +325,7 @@ if (sessionStorage.getItem("userlog")===null	) {
 																			{
 
 																				 if (data.val=="true"){
-																						 alert("Compra realizada")
+																						 //alert("Compra realizada")
 																						 sessionStorage.removeItem("carrito2");
 																						 carrito=[]
 																					  window.location.replace("compras.html");
@@ -455,7 +455,7 @@ if (sessionStorage.getItem("userlog")===null	) {
 
 										 function añadirp(id){
 											 carrito.push(id)
-											 alert("Producto añadido")
+											 //alert("Producto añadido")
 
 												document.getElementById('notis').innerHTML=carrito.length
 												sessionStorage.removeItem("carrito2");
@@ -466,7 +466,7 @@ if (sessionStorage.getItem("userlog")===null	) {
 										 function eliminarp(id){
 
 											 carrito.splice(id, 1);
-											 alert("Producto eliminado")
+											 //alert("Producto eliminado")
 location.reload();
 												document.getElementById('notis').innerHTML=carrito.length
 												sessionStorage.removeItem("carrito2");
@@ -569,7 +569,7 @@ function cargareseña(id) {
 	{
 
 		 if (data.val=="true"){
-				 alert("Reseña subida")
+				 //alert("Reseña subida")
 				 window.location.replace("index.html");
 
 
