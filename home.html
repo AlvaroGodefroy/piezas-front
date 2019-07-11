@@ -372,7 +372,8 @@ function reportestock(){
 {"firstName":"Peter", "lastName":"Jones"}
 	];
 	var doc = new jsPDF()
-	var total=0;
+  var total=0;
+  doc.text(35,25, "REPORTE STOCKS PIEZAS")
 	producsall.forEach(function(producsall3, i){
 		total=total + producsall3.stock;
 			doc.text(20, 10 + (i * 10),
@@ -382,7 +383,7 @@ function reportestock(){
 	});
 
 	doc.text('Stock total' +total , 100,230)
- doc.save('Reporte Stock_kikeautomotriz2019.pdf')
+ doc.save('Reporte Stock_kikeautomotriz2019_piezas.pdf')
 
 }
 
@@ -401,8 +402,8 @@ function reportestock(){
 			total=total + comprasall3.total;
 				doc.text(20, 45 + (i * 10),
             "Pedido "+ i +
-						"Codigo productos: " + comprasall3.products + "    "+
-						"Precio total por pedido: " + comprasall3.total);
+						"\tCodigo productos: " + comprasall3.products+
+						"\tPrecio total por pedido: " + comprasall3.total);
 
 		});
 
